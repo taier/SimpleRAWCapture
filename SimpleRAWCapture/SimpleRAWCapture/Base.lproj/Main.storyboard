@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11198.2" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
+                        <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FM9-ue-TVu" customClass="AVCamPreviewView">
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="qE0-o2-zeP" appends="YES" id="fMF-4J-ghM"/>
+                                </connections>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htC-wf-N67">
+                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="2lW-7c-ZY5"/>
+                                </constraints>
+                                <state key="normal" title="Capture"/>
+                                <connections>
+                                    <action selector="onCapturePress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sO4-xo-c2y"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="FM9-ue-TVu" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="6ge-8S-bXH"/>
+                            <constraint firstAttribute="trailing" secondItem="htC-wf-N67" secondAttribute="trailing" id="RzS-GH-ik4"/>
+                            <constraint firstAttribute="trailing" secondItem="FM9-ue-TVu" secondAttribute="trailing" id="UIX-C5-wOi"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="htC-wf-N67" secondAttribute="bottom" id="cGB-jW-Wr3"/>
+                            <constraint firstItem="FM9-ue-TVu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="gOR-6e-MlX"/>
+                            <constraint firstItem="htC-wf-N67" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="sw9-Kk-Ax0"/>
+                            <constraint firstItem="htC-wf-N67" firstAttribute="top" secondItem="FM9-ue-TVu" secondAttribute="bottom" id="wUv-XE-fq3"/>
+                        </constraints>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="667"/>
+                    <connections>
+                        <outlet property="previewView" destination="FM9-ue-TVu" id="vw5-QJ-3BN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="qE0-o2-zeP">
+                    <connections>
+                        <action selector="focusAndExposeTap:" destination="BYZ-38-t0r" id="IG4-kA-BrW"/>
+                    </connections>
+                </tapGestureRecognizer>
+            </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
+        </scene>
+    </scenes>
+</document>

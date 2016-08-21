@@ -1,0 +1,331 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B7B146391D69B41E00D5BA1B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B146381D69B41E00D5BA1B /* main.m */; };
+		B7B1463C1D69B41E00D5BA1B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B1463B1D69B41E00D5BA1B /* AppDelegate.m */; };
+		B7B1463F1D69B41E00D5BA1B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B1463E1D69B41E00D5BA1B /* ViewController.m */; };
+		B7B146421D69B41E00D5BA1B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7B146401D69B41E00D5BA1B /* Main.storyboard */; };
+		B7B146441D69B41E00D5BA1B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B7B146431D69B41E00D5BA1B /* Assets.xcassets */; };
+		B7B146471D69B41E00D5BA1B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B7B146451D69B41E00D5BA1B /* LaunchScreen.storyboard */; };
+		B7B146501D69B6EA00D5BA1B /* AVCamPreviewView.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B1464F1D69B6EA00D5BA1B /* AVCamPreviewView.m */; };
+		B7B146531D69BDA800D5BA1B /* AVCamPhotoCaptureDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B146521D69BDA800D5BA1B /* AVCamPhotoCaptureDelegate.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		B7B146341D69B41E00D5BA1B /* SimpleRAWCapture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleRAWCapture.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B7B146381D69B41E00D5BA1B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		B7B1463A1D69B41E00D5BA1B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		B7B1463B1D69B41E00D5BA1B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		B7B1463D1D69B41E00D5BA1B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		B7B1463E1D69B41E00D5BA1B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		B7B146411D69B41E00D5BA1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		B7B146431D69B41E00D5BA1B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B7B146461D69B41E00D5BA1B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		B7B146481D69B41E00D5BA1B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B7B1464E1D69B6EA00D5BA1B /* AVCamPreviewView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamPreviewView.h; sourceTree = "<group>"; };
+		B7B1464F1D69B6EA00D5BA1B /* AVCamPreviewView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamPreviewView.m; sourceTree = "<group>"; };
+		B7B146511D69BDA800D5BA1B /* AVCamPhotoCaptureDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AVCamPhotoCaptureDelegate.h; sourceTree = "<group>"; };
+		B7B146521D69BDA800D5BA1B /* AVCamPhotoCaptureDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AVCamPhotoCaptureDelegate.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B7B146311D69B41E00D5BA1B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B7B1462B1D69B41E00D5BA1B = {
+			isa = PBXGroup;
+			children = (
+				B7B146361D69B41E00D5BA1B /* SimpleRAWCapture */,
+				B7B146351D69B41E00D5BA1B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B7B146351D69B41E00D5BA1B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B7B146341D69B41E00D5BA1B /* SimpleRAWCapture.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B7B146361D69B41E00D5BA1B /* SimpleRAWCapture */ = {
+			isa = PBXGroup;
+			children = (
+				B7B146511D69BDA800D5BA1B /* AVCamPhotoCaptureDelegate.h */,
+				B7B146521D69BDA800D5BA1B /* AVCamPhotoCaptureDelegate.m */,
+				B7B1464E1D69B6EA00D5BA1B /* AVCamPreviewView.h */,
+				B7B1464F1D69B6EA00D5BA1B /* AVCamPreviewView.m */,
+				B7B1463A1D69B41E00D5BA1B /* AppDelegate.h */,
+				B7B1463B1D69B41E00D5BA1B /* AppDelegate.m */,
+				B7B1463D1D69B41E00D5BA1B /* ViewController.h */,
+				B7B1463E1D69B41E00D5BA1B /* ViewController.m */,
+				B7B146401D69B41E00D5BA1B /* Main.storyboard */,
+				B7B146431D69B41E00D5BA1B /* Assets.xcassets */,
+				B7B146451D69B41E00D5BA1B /* LaunchScreen.storyboard */,
+				B7B146481D69B41E00D5BA1B /* Info.plist */,
+				B7B146371D69B41E00D5BA1B /* Supporting Files */,
+			);
+			path = SimpleRAWCapture;
+			sourceTree = "<group>";
+		};
+		B7B146371D69B41E00D5BA1B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				B7B146381D69B41E00D5BA1B /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		B7B146331D69B41E00D5BA1B /* SimpleRAWCapture */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B7B1464B1D69B41E00D5BA1B /* Build configuration list for PBXNativeTarget "SimpleRAWCapture" */;
+			buildPhases = (
+				B7B146301D69B41E00D5BA1B /* Sources */,
+				B7B146311D69B41E00D5BA1B /* Frameworks */,
+				B7B146321D69B41E00D5BA1B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SimpleRAWCapture;
+			productName = SimpleRAWCapture;
+			productReference = B7B146341D69B41E00D5BA1B /* SimpleRAWCapture.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B7B1462C1D69B41E00D5BA1B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = "Deniss Kaibagarovs";
+				TargetAttributes = {
+					B7B146331D69B41E00D5BA1B = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 99TE4Z2NY7;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = B7B1462F1D69B41E00D5BA1B /* Build configuration list for PBXProject "SimpleRAWCapture" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B7B1462B1D69B41E00D5BA1B;
+			productRefGroup = B7B146351D69B41E00D5BA1B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B7B146331D69B41E00D5BA1B /* SimpleRAWCapture */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B7B146321D69B41E00D5BA1B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B7B146471D69B41E00D5BA1B /* LaunchScreen.storyboard in Resources */,
+				B7B146441D69B41E00D5BA1B /* Assets.xcassets in Resources */,
+				B7B146421D69B41E00D5BA1B /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B7B146301D69B41E00D5BA1B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B7B146531D69BDA800D5BA1B /* AVCamPhotoCaptureDelegate.m in Sources */,
+				B7B1463F1D69B41E00D5BA1B /* ViewController.m in Sources */,
+				B7B1463C1D69B41E00D5BA1B /* AppDelegate.m in Sources */,
+				B7B146501D69B6EA00D5BA1B /* AVCamPreviewView.m in Sources */,
+				B7B146391D69B41E00D5BA1B /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		B7B146401D69B41E00D5BA1B /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B7B146411D69B41E00D5BA1B /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		B7B146451D69B41E00D5BA1B /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				B7B146461D69B41E00D5BA1B /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		B7B146491D69B41E00D5BA1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B7B1464A1D69B41E00D5BA1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		B7B1464C1D69B41E00D5BA1B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 99TE4Z2NY7;
+				INFOPLIST_FILE = SimpleRAWCapture/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.sudo.SimpleRAWCapture;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		B7B1464D1D69B41E00D5BA1B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 99TE4Z2NY7;
+				INFOPLIST_FILE = SimpleRAWCapture/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = mobi.sudo.SimpleRAWCapture;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B7B1462F1D69B41E00D5BA1B /* Build configuration list for PBXProject "SimpleRAWCapture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B7B146491D69B41E00D5BA1B /* Debug */,
+				B7B1464A1D69B41E00D5BA1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B7B1464B1D69B41E00D5BA1B /* Build configuration list for PBXNativeTarget "SimpleRAWCapture" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B7B1464C1D69B41E00D5BA1B /* Debug */,
+				B7B1464D1D69B41E00D5BA1B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B7B1462C1D69B41E00D5BA1B /* Project object */;
+}
