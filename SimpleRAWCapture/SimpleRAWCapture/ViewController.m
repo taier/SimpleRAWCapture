@@ -21,7 +21,7 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
     AVCamSetupResultSessionConfigurationFailed
 };
 
-@interface ViewController () <AVCaptureFileOutputRecordingDelegate>
+@interface ViewController ()
 
 // Outletts
 @property (weak, nonatomic) IBOutlet AVCamPreviewView *previewView;
@@ -72,8 +72,6 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
         self.previewView.videoPreviewLayer.connection.videoOrientation = (AVCaptureVideoOrientation)deviceOrientation;
     }
 }
-
-
 
 
  //MARK: Setup methods
@@ -227,7 +225,10 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
         photoOutputConnection.videoOrientation = videoPreviewLayerVideoOrientation;
         
         // Capture a JPEG photo with flash set to auto and high resolution photo enabled.
-        AVCapturePhotoSettings *photoSettings = [AVCapturePhotoSettings photoSettings];
+        int rawFormat = self.photoOutput.availableRawPhotoPixelFormatTypes.firstObject.intValue;
+        
+        AVCapturePhotoSettings *photoSettings = [AVCapturePhotoSettings photoSettingsWithRawPixelFormatType:rawFormat];
+        // AVCapturePhotoSettings *photoSettings = [AVCapturePhotoSettings photoSettings];
         photoSettings.flashMode = AVCaptureFlashModeAuto;
         photoSettings.highResolutionPhotoEnabled = YES;
         if ( photoSettings.availablePreviewPhotoPixelFormatTypes.count > 0 ) {
@@ -267,6 +268,43 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 - (void)captureOutput:(AVCaptureFileOutput *)captureOutput didStartRecordingToOutputFileAtURL:(NSURL *)fileURL fromConnections:(NSArray *)connections
 {
     
+}
+
+- (void)captureOutput:(AVCapturePhotoOutput *)captureOutput didFinishProcessingRawPhotoSampleBuffer:(nullable CMSampleBufferRef)rawSampleBuffer previewPhotoSampleBuffer:(nullable CMSampleBufferRef)previewPhotoSampleBuffer resolvedSettings:(AVCaptureResolvedPhotoSettings *)resolvedSettings bracketSettings:(nullable AVCaptureBracketedStillImageSettings *)bracketSettings error:(nullable NSError *)error {
+    if ( rawSampleBuffer ) {
+        NSURL *temporaryDNGFileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%lld.dng", resolvedSettings.uniqueID]]];
+        NSData *imageData = [AVCapturePhotoOutput DNGPhotoDataRepresentationForRawSampleBuffer:rawSampleBuffer previewPhotoSampleBuffer:previewPhotoSampleBuffer];
+        [imageData writeToURL:temporaryDNGFileURL atomically:YES];
+        
+        [PHPhotoLibrary requestAuthorization:^( PHAuthorizationStatus status ) {
+            if ( status == PHAuthorizationStatusAuthorized ) {
+                [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+                    // In iOS 9 and later, it's possible to move the file into the photo library without duplicating the file data.
+                    // This avoids using double the disk space during save, which can make a difference on devices with limited free disk space.
+                    PHAssetResourceCreationOptions *options = [[PHAssetResourceCreationOptions alloc] init];
+                    options.shouldMoveFile = YES;
+                    [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto fileURL:temporaryDNGFileURL options:options]; // Add move (not copy) option
+                } completionHandler:^( BOOL success, NSError *error ) {
+                    if ( ! success ) {
+                        NSLog( @"Error occurred while saving raw photo to photo library: %@", error );
+                    }
+                    else {
+                        NSLog( @"Raw photo was saved to photo library" );
+                    }
+                    
+                    if ( [[NSFileManager defaultManager] fileExistsAtPath:temporaryDNGFileURL.path] ) {
+                        [[NSFileManager defaultManager] removeItemAtURL:temporaryDNGFileURL error:nil];
+                    }
+                }];
+            }
+            else {
+                NSLog( @"Not authorized to save photo" );
+            }
+        }];
+    }
+    else {
+        NSLog( @"Error occurred while capturing photo: %@", error );
+    }
 }
 
 // MARK: KVO

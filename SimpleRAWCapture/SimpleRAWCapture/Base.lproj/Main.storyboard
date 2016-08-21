@@ -19,18 +19,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FM9-ue-TVu" customClass="AVCamPreviewView">
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="qE0-o2-zeP" appends="YES" id="fMF-4J-ghM"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htC-wf-N67">
-                                <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="htC-wf-N67">
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="2lW-7c-ZY5"/>
                                 </constraints>
-                                <state key="normal" title="Capture"/>
+                                <state key="normal" image="Camera"/>
                                 <connections>
                                     <action selector="onCapturePress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sO4-xo-c2y"/>
                                 </connections>
@@ -63,4 +62,7 @@
             <point key="canvasLocation" x="136.80000000000001" y="138.98050974512745"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Camera" width="64" height="64"/>
+    </resources>
 </document>
