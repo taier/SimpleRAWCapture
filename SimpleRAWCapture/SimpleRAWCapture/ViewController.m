@@ -13,6 +13,7 @@
 #import "ViewController.h"
 #import "AVCamPreviewView.h"
 #import "AVCamPhotoCaptureDelegate.h"
+#import "DKPermissonManager.h"
 
 #import "OnboardingViewController.h"
 #import "OnboardingContentViewController.h"
@@ -36,10 +37,14 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 @property (nonatomic) AVCaptureSession *session;
 @property (nonatomic, getter=isSessionRunning) BOOL sessionRunning;
 
+@property (nonatomic) OnboardingViewController *onboardingVC;
+
 @property (nonatomic) AVCapturePhotoOutput *photoOutput;
 @property (nonatomic) AVCaptureDeviceInput *videoDeviceInput;
 @property (nonatomic) NSMutableDictionary<NSNumber *, AVCamPhotoCaptureDelegate *> *inProgressPhotoCaptureDelegates;
 @property (nonatomic) UIBackgroundTaskIdentifier backgroundRecordingID;
+
+@property BOOL didLoad;
 
 @end
 
@@ -47,39 +52,34 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self initialSetup];
-    // Do any additional setup after loading the view, typically from a nib.
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self showCamera];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-    //OnboardingContentViewController *firstPage = [OnboardingContentViewController initWithTitle:@"Page Title" body:@"Page body goes here." image:[UIImage //imageNamed:@"icon"] buttonText:@"Text For Button" action:^{
-        // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
-   // }];
-    
-    OnboardingContentViewController *firstPage = [[OnboardingContentViewController alloc] initWithTitle:@"Page Title" body:@"Page body goes here." image:NULL buttonText:@"Text For Button" action:^{
-        
-    }];
-    
-    
-    // Image
-    OnboardingViewController *onboardingVC = [[OnboardingViewController alloc] initWithBackgroundImage:[UIImage imageNamed:@"background.jpg"] contents:@[firstPage]];
-    onboardingVC.shouldBlurBackground = true;
-    onboardingVC.shouldMaskBackground = false;
-
-    
-    [self presentViewController:onboardingVC animated:YES completion:NULL];
-
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    if(!self.didLoad) {
+        if([DKPermissonManager hasCameraAcess] == DKAcessGranted &&
+           [DKPermissonManager hasPhotoLibraryAcess] == DKAcessGranted) {
+            [self setupCameraAfterPermission];
+        } else {
+            [self showOnboarding];
+        }
+        self.didLoad = true;
+    }
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
@@ -100,6 +100,72 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 
 
  //MARK: Setup methods
+
+- (void)setupCameraAfterPermission {
+    [self initialSetup];
+    [self showCamera];
+}
+
+- (void)showOnboarding {
+    OnboardingContentViewController *firstPage = [[OnboardingContentViewController alloc] initWithTitle:@"Let's start!" body:@"Application need camera to take pictures." image:NULL buttonText:@"Give Access" action:^{
+        
+        DKAccess cameraAccess = [DKPermissonManager hasCameraAcess];
+        
+        if (cameraAccess == DKAcessGranted) {
+            [self.onboardingVC moveNextPage];
+        } else if (cameraAccess == DKAcessDenided) {
+            [DKPermissonManager showPermissionDeniedAlert:DKPermissonCamer viewController:self.onboardingVC];
+        } else if (cameraAccess == DKAcessAsking) {
+            [DKPermissonManager askForCameraAcess:^(BOOL granted) {
+                if(granted){ // Access has been granted ..do something
+                    [self.onboardingVC moveNextPage];
+                } else { // Access denied ..do something
+                    [DKPermissonManager showPermissionDeniedAlert:DKPermissonCamer viewController:self.onboardingVC];
+                }
+            }];
+        }
+        
+    }];
+    
+    OnboardingContentViewController *secondPage = [[OnboardingContentViewController alloc] initWithTitle:@"Save photos" body:@"Application need photo library to save photos" image:NULL buttonText:@"Give Access!" action:^{
+        
+        DKAccess cameraAccess = [DKPermissonManager hasPhotoLibraryAcess];
+        
+        if (cameraAccess == DKAcessGranted) {
+            [self.onboardingVC moveNextPage];
+        } else if (cameraAccess == DKAcessDenided) {
+            [DKPermissonManager showPermissionDeniedAlert:DKPermissonPhotoLibrary viewController:self.onboardingVC];
+        } else if (cameraAccess == DKAcessAsking) {
+            [DKPermissonManager askForPhotoLibraryAcess:^(PHAuthorizationStatus status) {
+                if (status == PHAuthorizationStatusAuthorized) {
+                    // Access has been granted.
+                    [self.onboardingVC moveNextPage];
+                } else {
+                    // Access has been denied.
+                    [DKPermissonManager showPermissionDeniedAlert:DKPermissonPhotoLibrary viewController:self.onboardingVC];
+                }
+            }];
+        }
+    }];
+    
+    OnboardingContentViewController *thirdPage = [[OnboardingContentViewController alloc] initWithTitle:@"Done!" body:@"Let's take some photos!" image:NULL buttonText:@"Finish!" action:^{
+        [self setupCameraAfterPermission];
+        [self.onboardingVC dismissViewControllerAnimated:true completion:NULL];
+    }];
+    
+    // Image
+    NSBundle *bundle = [NSBundle mainBundle];
+    NSString *moviePath = [bundle pathForResource:@"background" ofType:@"mp4"];
+    NSURL *movieURL = [NSURL fileURLWithPath:moviePath];
+    
+    self.onboardingVC = [[OnboardingViewController alloc] initWithBackgroundVideoURL:movieURL contents:@[firstPage, secondPage, thirdPage]];
+    //self.onboardingVC = [[OnboardingViewController alloc] initWithBackgroundImage:[UIImage imageNamed:@"background.jpg"] contents:@[firstPage, secondPage, thirdPage]];
+    //self.onboardingVC.shouldBlurBackground = true;
+    //self.onboardingVC.shouldMaskBackground = false;
+    self.onboardingVC.swipingEnabled = false;
+    
+    [self presentViewController:self.onboardingVC animated:YES completion:NULL];
+}
 
 - (void)initialSetup {
     

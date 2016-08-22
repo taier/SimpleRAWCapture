@@ -2,7 +2,6 @@
 # platform :ios, '6.0'
 
 target 'SimpleRAWCapture' do
-pod 'Onboard', '~> 1.0'
 
 end
 
