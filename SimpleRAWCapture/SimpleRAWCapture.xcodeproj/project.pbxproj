@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F6F8C5DFEBE20240997EE2A /* libPods-SimpleRAWCapture.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4CF3D7D16B30AD17895C9C2B /* libPods-SimpleRAWCapture.a */; };
+		97FB14C91D6B56D6008BB100 /* background.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 97FB14C81D6B56D6008BB100 /* background.jpg */; };
 		B7B146391D69B41E00D5BA1B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B146381D69B41E00D5BA1B /* main.m */; };
 		B7B1463C1D69B41E00D5BA1B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B1463B1D69B41E00D5BA1B /* AppDelegate.m */; };
 		B7B1463F1D69B41E00D5BA1B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B1463E1D69B41E00D5BA1B /* ViewController.m */; };
@@ -18,6 +20,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4CF3D7D16B30AD17895C9C2B /* libPods-SimpleRAWCapture.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-SimpleRAWCapture.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		97FB14C81D6B56D6008BB100 /* background.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = background.jpg; sourceTree = "<group>"; };
+		AA33904FE4FFE9457C3C56D5 /* Pods-SimpleRAWCapture.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleRAWCapture.release.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleRAWCapture/Pods-SimpleRAWCapture.release.xcconfig"; sourceTree = "<group>"; };
+		B2B28C50F096F89588DC6537 /* Pods-SimpleRAWCapture.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SimpleRAWCapture.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SimpleRAWCapture/Pods-SimpleRAWCapture.debug.xcconfig"; sourceTree = "<group>"; };
 		B7B146341D69B41E00D5BA1B /* SimpleRAWCapture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleRAWCapture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7B146381D69B41E00D5BA1B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B7B1463A1D69B41E00D5BA1B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -39,17 +45,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3F6F8C5DFEBE20240997EE2A /* libPods-SimpleRAWCapture.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		64CB3F15E9BC2294A75AE6A0 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				B2B28C50F096F89588DC6537 /* Pods-SimpleRAWCapture.debug.xcconfig */,
+				AA33904FE4FFE9457C3C56D5 /* Pods-SimpleRAWCapture.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		B7B1462B1D69B41E00D5BA1B = {
 			isa = PBXGroup;
 			children = (
 				B7B146361D69B41E00D5BA1B /* SimpleRAWCapture */,
 				B7B146351D69B41E00D5BA1B /* Products */,
+				64CB3F15E9BC2294A75AE6A0 /* Pods */,
+				D1F14B3CC2921D4C2201647B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -64,6 +82,7 @@
 		B7B146361D69B41E00D5BA1B /* SimpleRAWCapture */ = {
 			isa = PBXGroup;
 			children = (
+				97FB14C81D6B56D6008BB100 /* background.jpg */,
 				B7B146511D69BDA800D5BA1B /* AVCamPhotoCaptureDelegate.h */,
 				B7B146521D69BDA800D5BA1B /* AVCamPhotoCaptureDelegate.m */,
 				B7B1464E1D69B6EA00D5BA1B /* AVCamPreviewView.h */,
@@ -89,6 +108,14 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		D1F14B3CC2921D4C2201647B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4CF3D7D16B30AD17895C9C2B /* libPods-SimpleRAWCapture.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -96,9 +123,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B7B1464B1D69B41E00D5BA1B /* Build configuration list for PBXNativeTarget "SimpleRAWCapture" */;
 			buildPhases = (
+				02FBD4BFD55264BD0AE87762 /* Check Pods Manifest.lock */,
 				B7B146301D69B41E00D5BA1B /* Sources */,
 				B7B146311D69B41E00D5BA1B /* Frameworks */,
 				B7B146321D69B41E00D5BA1B /* Resources */,
+				B908E4C512A6006FD716E2D6 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -149,12 +178,46 @@
 			buildActionMask = 2147483647;
 			files = (
 				B7B146471D69B41E00D5BA1B /* LaunchScreen.storyboard in Resources */,
+				97FB14C91D6B56D6008BB100 /* background.jpg in Resources */,
 				B7B146441D69B41E00D5BA1B /* Assets.xcassets in Resources */,
 				B7B146421D69B41E00D5BA1B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		02FBD4BFD55264BD0AE87762 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		B908E4C512A6006FD716E2D6 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SimpleRAWCapture/Pods-SimpleRAWCapture-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		B7B146301D69B41E00D5BA1B /* Sources */ = {
@@ -283,6 +346,7 @@
 		};
 		B7B1464C1D69B41E00D5BA1B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B2B28C50F096F89588DC6537 /* Pods-SimpleRAWCapture.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 99TE4Z2NY7;
@@ -295,6 +359,7 @@
 		};
 		B7B1464D1D69B41E00D5BA1B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA33904FE4FFE9457C3C56D5 /* Pods-SimpleRAWCapture.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 99TE4Z2NY7;

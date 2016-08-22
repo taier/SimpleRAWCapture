@@ -4,7 +4,8 @@
 //
 //  Created by Deniss Kaibagarovs on 21/08/16.
 //  Copyright © 2016 Deniss Kaibagarovs. All rights reserved.
-//
+// https://github.com/mamaral/Onboard
+
 
 @import AVFoundation;
 @import Photos;
@@ -12,6 +13,9 @@
 #import "ViewController.h"
 #import "AVCamPreviewView.h"
 #import "AVCamPhotoCaptureDelegate.h"
+
+#import "OnboardingViewController.h"
+#import "OnboardingContentViewController.h"
 
 static void * SessionRunningContext = &SessionRunningContext;
 
@@ -50,6 +54,27 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [self showCamera];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    //OnboardingContentViewController *firstPage = [OnboardingContentViewController initWithTitle:@"Page Title" body:@"Page body goes here." image:[UIImage //imageNamed:@"icon"] buttonText:@"Text For Button" action:^{
+        // do something here when users press the button, like ask for location services permissions, register for push notifications, connect to social media, or finish the onboarding process
+   // }];
+    
+    OnboardingContentViewController *firstPage = [[OnboardingContentViewController alloc] initWithTitle:@"Page Title" body:@"Page body goes here." image:NULL buttonText:@"Text For Button" action:^{
+        
+    }];
+    
+    
+    // Image
+    OnboardingViewController *onboardingVC = [[OnboardingViewController alloc] initWithBackgroundImage:[UIImage imageNamed:@"background.jpg"] contents:@[firstPage]];
+    onboardingVC.shouldBlurBackground = true;
+    onboardingVC.shouldMaskBackground = false;
+
+    
+    [self presentViewController:onboardingVC animated:YES completion:NULL];
+
 }
 
 - (void)didReceiveMemoryWarning {
