@@ -249,7 +249,8 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
             dispatch_async( self.sessionQueue, ^{
                 self.inProgressPhotoCaptureDelegates[@(photoCaptureDelegate.requestedPhotoSettings.uniqueID)] = nil;
             } );
-        }];
+        } controller:self];
+        
         
         /*
          The Photo Output keeps a weak reference to the photo capture delegate so
@@ -269,6 +270,7 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 {
     
 }
+
 
 - (void)captureOutput:(AVCapturePhotoOutput *)captureOutput didFinishProcessingRawPhotoSampleBuffer:(nullable CMSampleBufferRef)rawSampleBuffer previewPhotoSampleBuffer:(nullable CMSampleBufferRef)previewPhotoSampleBuffer resolvedSettings:(AVCaptureResolvedPhotoSettings *)resolvedSettings bracketSettings:(nullable AVCaptureBracketedStillImageSettings *)bracketSettings error:(nullable NSError *)error {
     if ( rawSampleBuffer ) {

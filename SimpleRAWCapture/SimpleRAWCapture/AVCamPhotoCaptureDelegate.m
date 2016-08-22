@@ -17,6 +17,10 @@
 @property (nonatomic) void (^capturingLivePhoto)(BOOL capturing);
 @property (nonatomic) void (^completed)(AVCamPhotoCaptureDelegate *photoCaptureDelegate);
 
+@property (nonatomic) UIViewController *controllerToShare;
+
+@property (nonatomic) UIPopoverPresentationController *popController;
+
 @property (nonatomic) NSData *photoData;
 @property (nonatomic) NSURL *livePhotoCompanionMovieURL;
 
@@ -24,7 +28,7 @@
 
 @implementation AVCamPhotoCaptureDelegate
 
-- (instancetype)initWithRequestedPhotoSettings:(AVCapturePhotoSettings *)requestedPhotoSettings willCapturePhotoAnimation:(void (^)())willCapturePhotoAnimation capturingLivePhoto:(void (^)(BOOL))capturingLivePhoto completed:(void (^)(AVCamPhotoCaptureDelegate *))completed
+- (instancetype)initWithRequestedPhotoSettings:(AVCapturePhotoSettings *)requestedPhotoSettings willCapturePhotoAnimation:(void (^)())willCapturePhotoAnimation capturingLivePhoto:(void (^)(BOOL))capturingLivePhoto completed:(void (^)(AVCamPhotoCaptureDelegate *))completed controller:(UIViewController *)controller
 {
 	self = [super init];
 	if ( self ) {
@@ -32,6 +36,7 @@
 		self.willCapturePhotoAnimation = willCapturePhotoAnimation;
 		self.capturingLivePhoto = capturingLivePhoto;
 		self.completed = completed;
+        self.controllerToShare = controller;
 	}
 	return self;
 }
@@ -126,5 +131,71 @@
 		}
 	}];
 }
+
+- (void)captureOutput:(AVCapturePhotoOutput *)captureOutput didFinishProcessingRawPhotoSampleBuffer:(nullable CMSampleBufferRef)rawSampleBuffer previewPhotoSampleBuffer:(nullable CMSampleBufferRef)previewPhotoSampleBuffer resolvedSettings:(AVCaptureResolvedPhotoSettings *)resolvedSettings bracketSettings:(nullable AVCaptureBracketedStillImageSettings *)bracketSettings error:(nullable NSError *)error {
+    if ( rawSampleBuffer ) {
+        NSURL *temporaryDNGFileURL = [NSURL fileURLWithPath:[NSTemporaryDirectory() stringByAppendingPathComponent:[NSString stringWithFormat:@"%lld.dng", resolvedSettings.uniqueID]]];
+        NSData *imageData = [AVCapturePhotoOutput DNGPhotoDataRepresentationForRawSampleBuffer:rawSampleBuffer previewPhotoSampleBuffer:previewPhotoSampleBuffer];
+        [imageData writeToURL:temporaryDNGFileURL atomically:YES];
+        
+        UIImage *image = [UIImage imageWithData:imageData];
+        NSArray *items = @[image];
+        
+        // build an activity view controller
+        UIActivityViewController *controller = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
+        
+        // and present it
+        //[_controllerToShare presentViewController:controller animated:YES completion:^{
+            // executes after the user selects something
+       // }];
+        
+        
+        //self.popController = [[UIPopoverPresentationController alloc] initWithContentViewController:self.controllerToShare];
+        //[self.popController presentViewC
+        //[self.popController presentPopoverFromRect:CGRectMake(self.controllerToShare.view.frame.size.width/2, self.controllerToShare.view.frame.size.width/2, 100, 100) inView:self.controllerToShare.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
+        
+        
+        // for iPad: make the presentation a Popover
+        //controller.modalPresentationStyle = UIModalPresentationPageSheet;
+        //[_controllerToShare presentViewController:controller animated:YES completion:nil];
+        
+        //UIPopoverPresentationController *popController = [controller popoverPresentationController];
+        //popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
+        
+        
+        
+        [PHPhotoLibrary requestAuthorization:^( PHAuthorizationStatus status ) {
+            if ( status == PHAuthorizationStatusAuthorized ) {
+                [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
+                    // In iOS 9 and later, it's possible to move the file into the photo library without duplicating the file data.
+                    // This avoids using double the disk space during save, which can make a difference on devices with limited free disk space.
+                    PHAssetResourceCreationOptions *options = [[PHAssetResourceCreationOptions alloc] init];
+                    options.shouldMoveFile = YES;
+                    [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto fileURL:temporaryDNGFileURL options:options]; // Add move (not copy) option
+                } completionHandler:^( BOOL success, NSError *error ) {
+                    if ( ! success ) {
+                        NSLog( @"Error occurred while saving raw photo to photo library: %@", error );
+                    }
+                    else {
+                        NSLog( @"Raw photo was saved to photo library" );
+                    }
+                    
+                    if ( [[NSFileManager defaultManager] fileExistsAtPath:temporaryDNGFileURL.path] ) {
+                        [[NSFileManager defaultManager] removeItemAtURL:temporaryDNGFileURL error:nil];
+                    }
+                }];
+            }
+            else {
+                NSLog( @"Not authorized to save photo" );
+            }
+        }];
+    }
+    else {
+        NSLog( @"Error occurred while capturing photo: %@", error );
+    }
+}
+
+
+
 
 @end

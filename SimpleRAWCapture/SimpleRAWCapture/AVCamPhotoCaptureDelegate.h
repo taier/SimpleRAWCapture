@@ -7,10 +7,11 @@
 */
 
 @import AVFoundation;
+@import UIKit;
 
 @interface AVCamPhotoCaptureDelegate : NSObject<AVCapturePhotoCaptureDelegate>
 
-- (instancetype)initWithRequestedPhotoSettings:(AVCapturePhotoSettings *)requestedPhotoSettings willCapturePhotoAnimation:(void (^)())willCapturePhotoAnimation capturingLivePhoto:(void (^)( BOOL capturing ))capturingLivePhoto completed:(void (^)( AVCamPhotoCaptureDelegate *photoCaptureDelegate ))completed;
+- (instancetype)initWithRequestedPhotoSettings:(AVCapturePhotoSettings *)requestedPhotoSettings willCapturePhotoAnimation:(void (^)())willCapturePhotoAnimation capturingLivePhoto:(void (^)(BOOL))capturingLivePhoto completed:(void (^)(AVCamPhotoCaptureDelegate *))completed controller:(UIViewController *)controller;
 
 @property (nonatomic, readonly) AVCapturePhotoSettings *requestedPhotoSettings;
 

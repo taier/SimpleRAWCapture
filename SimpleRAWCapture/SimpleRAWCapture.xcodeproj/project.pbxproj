@@ -324,6 +324,7 @@
 				B7B1464D1D69B41E00D5BA1B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
