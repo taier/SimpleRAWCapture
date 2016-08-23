@@ -138,32 +138,6 @@
         NSData *imageData = [AVCapturePhotoOutput DNGPhotoDataRepresentationForRawSampleBuffer:rawSampleBuffer previewPhotoSampleBuffer:previewPhotoSampleBuffer];
         [imageData writeToURL:temporaryDNGFileURL atomically:YES];
         
-        UIImage *image = [UIImage imageWithData:imageData];
-        NSArray *items = @[image];
-        
-        // build an activity view controller
-        UIActivityViewController *controller = [[UIActivityViewController alloc]initWithActivityItems:items applicationActivities:nil];
-        
-        // and present it
-        //[_controllerToShare presentViewController:controller animated:YES completion:^{
-            // executes after the user selects something
-       // }];
-        
-        
-        //self.popController = [[UIPopoverPresentationController alloc] initWithContentViewController:self.controllerToShare];
-        //[self.popController presentViewC
-        //[self.popController presentPopoverFromRect:CGRectMake(self.controllerToShare.view.frame.size.width/2, self.controllerToShare.view.frame.size.width/2, 100, 100) inView:self.controllerToShare.view permittedArrowDirections:UIPopoverArrowDirectionAny animated:YES];
-        
-        
-        // for iPad: make the presentation a Popover
-        //controller.modalPresentationStyle = UIModalPresentationPageSheet;
-        //[_controllerToShare presentViewController:controller animated:YES completion:nil];
-        
-        //UIPopoverPresentationController *popController = [controller popoverPresentationController];
-        //popController.permittedArrowDirections = UIPopoverArrowDirectionAny;
-        
-        
-        
         [PHPhotoLibrary requestAuthorization:^( PHAuthorizationStatus status ) {
             if ( status == PHAuthorizationStatusAuthorized ) {
                 [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{

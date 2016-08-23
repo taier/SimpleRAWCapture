@@ -210,12 +210,29 @@ static NSString * const kSkipButtonText = @"Skip";
         self.player = [[AVPlayer alloc] initWithURL:self.videoURL];
 
         self.moviePlayerController = [AVPlayerViewController new];
-        self.moviePlayerController.player = self.player;
         self.moviePlayerController.showsPlaybackControls = NO;
         self.moviePlayerController.videoGravity = AVLayerVideoGravityResizeAspectFill;
         
+        AVQueuePlayer *qplayer = [[AVQueuePlayer alloc] init];
+        
+        AVPlayerItem *playerItem = [[AVPlayerItem alloc] initWithURL:self.videoURL];
+        AVPlayerLooper *playerLooper = [AVPlayerLooper playerLooperWithPlayer:qplayer templateItem:playerItem];
+        
+        [qplayer play];
+        
+        self.moviePlayerController.player = qplayer;
+
+        
         [self.pageVC.view addSubview:self.moviePlayerController.view];
         [self.pageVC.view sendSubviewToBack:self.moviePlayerController.view];
+        
+       
+        
+        //playerLayer = AVPlayerLayer(player: player)
+        //playerItem = AVPLayerItem(url: videoURL)
+        //playerLooper = AVPlayerLooper(player: player, templateItem: playerItem)
+        //player.play()
+        
     }
     
     // create the page control
