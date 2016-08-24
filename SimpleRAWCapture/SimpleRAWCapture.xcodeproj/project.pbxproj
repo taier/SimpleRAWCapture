@@ -12,6 +12,7 @@
 		B7605B5F1D6B8A520046C537 /* OnboardingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7605B5D1D6B8A510046C537 /* OnboardingViewController.m */; };
 		B7605B621D6B8F5A0046C537 /* DKPermissonManager.m in Sources */ = {isa = PBXBuildFile; fileRef = B7605B611D6B8F5A0046C537 /* DKPermissonManager.m */; };
 		B7605B641D6B9F8A0046C537 /* background.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = B7605B631D6B9F8A0046C537 /* background.mp4 */; };
+		B7605B661D6E36A70046C537 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B7605B651D6E36A70046C537 /* iAd.framework */; };
 		B7B146391D69B41E00D5BA1B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B146381D69B41E00D5BA1B /* main.m */; };
 		B7B1463C1D69B41E00D5BA1B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B1463B1D69B41E00D5BA1B /* AppDelegate.m */; };
 		B7B1463F1D69B41E00D5BA1B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B1463E1D69B41E00D5BA1B /* ViewController.m */; };
@@ -34,6 +35,7 @@
 		B7605B601D6B8F5A0046C537 /* DKPermissonManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DKPermissonManager.h; sourceTree = "<group>"; };
 		B7605B611D6B8F5A0046C537 /* DKPermissonManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DKPermissonManager.m; sourceTree = "<group>"; };
 		B7605B631D6B9F8A0046C537 /* background.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = background.mp4; sourceTree = "<group>"; };
+		B7605B651D6E36A70046C537 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		B7B146341D69B41E00D5BA1B /* SimpleRAWCapture.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SimpleRAWCapture.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7B146381D69B41E00D5BA1B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		B7B1463A1D69B41E00D5BA1B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7605B661D6E36A70046C537 /* iAd.framework in Frameworks */,
 				11D3950288BD72505169BE1A /* libPods-SimpleRAWCapture.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -65,6 +68,7 @@
 		A5DE828AD4473BCF9C587FAD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				B7605B651D6E36A70046C537 /* iAd.framework */,
 				ADDB7524911F842E94DD7B4F /* libPods-SimpleRAWCapture.a */,
 			);
 			name = Frameworks;
@@ -386,6 +390,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 99TE4Z2NY7;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SimpleRAWCapture/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.sudo.SimpleRAWCapture;
@@ -399,6 +404,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 99TE4Z2NY7;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = SimpleRAWCapture/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = mobi.sudo.SimpleRAWCapture;

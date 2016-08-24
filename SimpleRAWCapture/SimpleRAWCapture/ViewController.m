@@ -9,6 +9,7 @@
 
 @import AVFoundation;
 @import Photos;
+@import GoogleMobileAds;
 
 #import "ViewController.h"
 #import "AVCamPreviewView.h"
@@ -30,12 +31,14 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 
 // Outletts
 @property (weak, nonatomic) IBOutlet AVCamPreviewView *previewView;
+@property (weak, nonatomic) IBOutlet DFPBannerView *bannerView;
 
 // Global variables
 @property (nonatomic) AVCamSetupResult setupResult;
 @property (nonatomic) dispatch_queue_t sessionQueue;
 @property (nonatomic) AVCaptureSession *session;
 @property (nonatomic, getter=isSessionRunning) BOOL sessionRunning;
+@property (nonatomic) bool flashEnabled;
 
 @property (nonatomic) OnboardingViewController *onboardingVC;
 
@@ -53,6 +56,13 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    //self.bannerView.adUnitID = @"/6499/example/banner";
+    self.bannerView.adUnitID = @"ca-app-pub-6795887346824199/1578371261";
+    self.bannerView.rootViewController = self;
+    
+    DFPRequest *request = [DFPRequest request];
+    request.testDevices = @[@"7266f9e7e2608e5526bdcc015fbd3de6" ];
+    [self.bannerView loadRequest:request];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -61,6 +71,7 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
+    NSLog(@"Google Mobile Ads SDK version: %@", [DFPRequest sdkVersion]);
 }
 
 - (void)didReceiveMemoryWarning {
@@ -80,6 +91,8 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
         }
         self.didLoad = true;
     }
+    
+    //[self.previewView setFrame:self.view.frame];
 }
 
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations
@@ -104,6 +117,30 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 - (void)setupCameraAfterPermission {
     [self initialSetup];
     [self showCamera];
+    [self showRAWSupportingNotification];
+}
+
+- (void)showRAWSupportingNotification {
+    int rawFormat = self.photoOutput.availableRawPhotoPixelFormatTypes.firstObject.intValue;
+    
+    if(rawFormat != 0) { // RAW supported!
+        return;
+    }
+    
+    UIAlertController * alert = [UIAlertController
+                                 alertControllerWithTitle:@"ATTENTION!"
+                                 message:@"RAW image shooting supported on the iPhone 6s, iPhone 6s Plus, iPhone SE, 9.7-inch iPad Pro and newer devices. You can still capture JPEG images using this application!"
+                                 preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* closeButton = [UIAlertAction
+                               actionWithTitle:@"Close"
+                               style:UIAlertActionStyleDefault
+                               handler:^(UIAlertAction * action) {
+                                   //Handle no, thanks button
+                               }];
+    
+    [alert addAction:closeButton];
+    [self presentViewController:alert animated:YES completion:nil];
 }
 
 - (void)showOnboarding {
@@ -294,11 +331,75 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 
  //MARK: Buttons
 
+
+
 - (IBAction)focusAndExposeTap:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint devicePoint = [self.previewView.videoPreviewLayer captureDevicePointOfInterestForPoint:[gestureRecognizer locationInView:gestureRecognizer.view]];
     [self focusWithMode:AVCaptureFocusModeAutoFocus exposeWithMode:AVCaptureExposureModeAutoExpose atDevicePoint:devicePoint monitorSubjectAreaChange:YES];
 }
+
+- (IBAction)onFlashPress:(id)sender {
+    
+    
+    self.flashEnabled = !self.flashEnabled;
+    UIButton *button = sender;
+    [button setTitle:self.flashEnabled ? @"Flash ON" : @"Flash OFF" forState:UIControlStateNormal];
+    
+    /*// We choose not to use flash when doing manual exposure
+    if ( self.photoOutput.exposureMode == AVCaptureExposureModeCustom ) {
+        photoSettings.flashMode = AVCaptureFlashModeOff;
+    }
+    else {
+        photoSettings.flashMode = [self.photoOutput.supportedFlashModes containsObject:@(AVCaptureFlashModeAuto)] ? AVCaptureFlashModeAuto : AVCaptureFlashModeOff;
+    }
+     */
+
+}
+
+- (AVCapturePhotoSettings *)currentPhotoSettings
+{
+    
+    AVCapturePhotoSettings *photoSettings = nil;
+    
+    if (self.photoOutput.isLensStabilizationDuringBracketedCaptureSupported ) {
+        NSArray *bracketedSettings = nil;
+        if (self.videoDeviceInput.device.exposureMode == AVCaptureExposureModeCustom) {
+            bracketedSettings = @[[AVCaptureManualExposureBracketedStillImageSettings manualExposureSettingsWithExposureDuration:AVCaptureExposureDurationCurrent ISO:AVCaptureISOCurrent]];
+        }
+        else {
+            bracketedSettings = @[[AVCaptureAutoExposureBracketedStillImageSettings autoExposureSettingsWithExposureTargetBias:AVCaptureExposureTargetBiasCurrent]];
+        }
+        
+        if (self.photoOutput.availableRawPhotoPixelFormatTypes.count) {
+            photoSettings = [AVCapturePhotoBracketSettings photoBracketSettingsWithRawPixelFormatType:(OSType)(((NSNumber *)self.photoOutput.availableRawPhotoPixelFormatTypes[0]).unsignedLongValue) processedFormat:nil bracketedSettings:bracketedSettings];
+        }
+        else {
+            photoSettings = [AVCapturePhotoBracketSettings photoBracketSettingsWithRawPixelFormatType:0 processedFormat:@{ AVVideoCodecKey : AVVideoCodecJPEG } bracketedSettings:bracketedSettings];
+        }
+        
+        ((AVCapturePhotoBracketSettings *)photoSettings).lensStabilizationEnabled = YES;
+    }
+    else {
+        if (self.photoOutput.availableRawPhotoPixelFormatTypes.count) {
+            photoSettings = [AVCapturePhotoSettings photoSettingsWithRawPixelFormatType:(OSType)(((NSNumber *)self.photoOutput.availableRawPhotoPixelFormatTypes[0]).unsignedLongValue) processedFormat:nil];
+        }
+        else {
+            photoSettings = [AVCapturePhotoSettings photoSettings];
+        }
+    }
+    
+    
+    photoSettings.flashMode = self.flashEnabled ? AVCaptureFlashModeOn : AVCaptureFlashModeOff;
+    
+    photoSettings.autoStillImageStabilizationEnabled = YES;
+    
+    photoSettings.highResolutionPhotoEnabled = YES;
+    
+    return photoSettings;
+}
+
+
 
 
 - (IBAction)onCapturePress:(id)sender {
@@ -315,17 +416,7 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
         AVCaptureConnection *photoOutputConnection = [self.photoOutput connectionWithMediaType:AVMediaTypeVideo];
         photoOutputConnection.videoOrientation = videoPreviewLayerVideoOrientation;
         
-        // Capture a JPEG photo with flash set to auto and high resolution photo enabled.
-        int rawFormat = self.photoOutput.availableRawPhotoPixelFormatTypes.firstObject.intValue;
-        
-        AVCapturePhotoSettings *photoSettings = [AVCapturePhotoSettings photoSettingsWithRawPixelFormatType:rawFormat];
-        // AVCapturePhotoSettings *photoSettings = [AVCapturePhotoSettings photoSettings];
-        photoSettings.flashMode = AVCaptureFlashModeAuto;
-        photoSettings.highResolutionPhotoEnabled = YES;
-        if ( photoSettings.availablePreviewPhotoPixelFormatTypes.count > 0 ) {
-            photoSettings.previewPhotoFormat = @{ (NSString *)kCVPixelBufferPixelFormatTypeKey : photoSettings.availablePreviewPhotoPixelFormatTypes.firstObject };
-        }
-        
+        AVCapturePhotoSettings *photoSettings = [self currentPhotoSettings];
         // Use a separate object for the photo capture delegate to isolate each capture life cycle.
         AVCamPhotoCaptureDelegate *photoCaptureDelegate = [[AVCamPhotoCaptureDelegate alloc] initWithRequestedPhotoSettings:photoSettings willCapturePhotoAnimation:^{
             dispatch_async( dispatch_get_main_queue(), ^{
