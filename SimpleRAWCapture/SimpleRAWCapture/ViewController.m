@@ -32,6 +32,7 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 // Outletts
 @property (weak, nonatomic) IBOutlet AVCamPreviewView *previewView;
 @property (weak, nonatomic) IBOutlet DFPBannerView *bannerView;
+@property (weak, nonatomic) IBOutlet UIImageView *imageViewPreview;
 
 // Global variables
 @property (nonatomic) AVCamSetupResult setupResult;
@@ -77,6 +78,10 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)updatePreviewImage:(UIImage *)image {
+    self.imageViewPreview.image = image;
 }
 
 - (void)viewDidLayoutSubviews {
@@ -389,6 +394,10 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
         }
     }
     
+    if ( photoSettings.availablePreviewPhotoPixelFormatTypes.count > 0 ) {
+        photoSettings.previewPhotoFormat = @{ (NSString *)kCVPixelBufferPixelFormatTypeKey : photoSettings.availablePreviewPhotoPixelFormatTypes[0] }; // The first format in the array is the preferred format
+    }
+    
     
     photoSettings.flashMode = self.flashEnabled ? AVCaptureFlashModeOn : AVCaptureFlashModeOff;
     
@@ -400,9 +409,18 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
 }
 
 
+- (IBAction)onGalleryPree:(id)sender {
+    
+    NSArray *objectsToShare = @[self.imageViewPreview.image];
+    
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:objectsToShare applicationActivities:nil];
+    
+    [self presentViewController:activityVC animated:YES completion:nil];
+}
 
 
 - (IBAction)onCapturePress:(id)sender {
+    
     /*
      Retrieve the video preview layer's video orientation on the main queue before
      entering the session queue. We do this to ensure UI elements are accessed on
@@ -428,6 +446,7 @@ typedef NS_ENUM( NSInteger, AVCamSetupResult ) {
         } capturingLivePhoto:^( BOOL capturing ) {
         } completed:^( AVCamPhotoCaptureDelegate *photoCaptureDelegate ) {
             // When the capture is complete, remove a reference to the photo capture delegate so it can be deallocated.
+                        
             dispatch_async( self.sessionQueue, ^{
                 self.inProgressPhotoCaptureDelegates[@(photoCaptureDelegate.requestedPhotoSettings.uniqueID)] = nil;
             } );

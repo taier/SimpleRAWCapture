@@ -28,6 +28,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rrI-Ip-fdC">
+                                <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="84" id="geG-TO-KrI"/>
                                     <constraint firstAttribute="height" constant="70" id="ryG-WT-LBK"/>
@@ -50,27 +51,50 @@
                                     <constraint firstAttribute="height" constant="50" id="pZx-49-Yth"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dVu-xN-eOk">
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="45" id="H7b-7e-xzY"/>
+                                    <constraint firstAttribute="width" constant="54" id="Hl3-RK-iPz"/>
+                                </constraints>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a3G-nM-dO4">
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="OpX-5E-Hfk"/>
+                                    <constraint firstAttribute="width" constant="75" id="UNF-y6-Us1"/>
+                                </constraints>
+                                <connections>
+                                    <action selector="onGalleryPree:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zPH-Ah-pZh"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="rrI-Ip-fdC" secondAttribute="bottom" id="3dd-RU-K20"/>
                             <constraint firstItem="FM9-ue-TVu" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="678-st-3aN"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="a3G-nM-dO4" secondAttribute="bottom" id="7Wf-fP-Z2l"/>
+                            <constraint firstItem="dVu-xN-eOk" firstAttribute="top" secondItem="Xkg-Uz-ZbE" secondAttribute="bottom" constant="13" id="7zM-f8-KJM"/>
                             <constraint firstAttribute="trailing" secondItem="rrI-Ip-fdC" secondAttribute="trailing" id="9va-0O-BfT"/>
+                            <constraint firstItem="a3G-nM-dO4" firstAttribute="top" secondItem="Xkg-Uz-ZbE" secondAttribute="bottom" id="Hov-fR-mCZ"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="dVu-xN-eOk" secondAttribute="bottom" constant="12" id="Nno-gE-Vv2"/>
                             <constraint firstItem="Xkg-Uz-ZbE" firstAttribute="top" secondItem="FM9-ue-TVu" secondAttribute="bottom" id="POA-zG-Rbb"/>
                             <constraint firstAttribute="trailing" secondItem="htC-wf-N67" secondAttribute="trailing" id="RzS-GH-ik4"/>
                             <constraint firstAttribute="trailing" secondItem="Xkg-Uz-ZbE" secondAttribute="trailing" id="X0L-or-4nW"/>
                             <constraint firstItem="Xkg-Uz-ZbE" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bqk-fV-eq7"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="htC-wf-N67" secondAttribute="bottom" id="cGB-jW-Wr3"/>
+                            <constraint firstItem="dVu-xN-eOk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="7" id="fpc-QR-f9X"/>
                             <constraint firstAttribute="trailing" secondItem="FM9-ue-TVu" secondAttribute="trailing" id="k1T-fJ-ez1"/>
                             <constraint firstItem="FM9-ue-TVu" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="lzp-xL-9Ik"/>
                             <constraint firstItem="htC-wf-N67" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="sw9-Kk-Ax0"/>
                             <constraint firstItem="rrI-Ip-fdC" firstAttribute="top" secondItem="Xkg-Uz-ZbE" secondAttribute="bottom" id="tJK-Sf-0Us"/>
+                            <constraint firstItem="a3G-nM-dO4" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="u69-oJ-oaa"/>
                         </constraints>
                     </view>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="667"/>
                     <connections>
                         <outlet property="bannerView" destination="Xkg-Uz-ZbE" id="ZUz-l7-wMM"/>
+                        <outlet property="imageViewPreview" destination="dVu-xN-eOk" id="Mk8-qy-q5V"/>
                         <outlet property="previewView" destination="FM9-ue-TVu" id="vw5-QJ-3BN"/>
                     </connections>
                 </viewController>

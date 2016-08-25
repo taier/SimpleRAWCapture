@@ -14,5 +14,6 @@
 - (instancetype)initWithRequestedPhotoSettings:(AVCapturePhotoSettings *)requestedPhotoSettings willCapturePhotoAnimation:(void (^)())willCapturePhotoAnimation capturingLivePhoto:(void (^)(BOOL))capturingLivePhoto completed:(void (^)(AVCamPhotoCaptureDelegate *))completed controller:(UIViewController *)controller;
 
 @property (nonatomic, readonly) AVCapturePhotoSettings *requestedPhotoSettings;
+@property (nonatomic, strong) UIImage *previewImage;
 
 @end

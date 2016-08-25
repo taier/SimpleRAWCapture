@@ -7,6 +7,7 @@
 */
 
 #import "AVCamPhotoCaptureDelegate.h"
+#import "ViewController.h"
 
 @import Photos;
 
@@ -17,7 +18,7 @@
 @property (nonatomic) void (^capturingLivePhoto)(BOOL capturing);
 @property (nonatomic) void (^completed)(AVCamPhotoCaptureDelegate *photoCaptureDelegate);
 
-@property (nonatomic) UIViewController *controllerToShare;
+@property (nonatomic) ViewController *controllerToShare;
 
 @property (nonatomic) UIPopoverPresentationController *popController;
 
@@ -73,8 +74,16 @@
 		NSLog( @"Error capturing photo: %@", error );
 		return;
 	}
-	
-	self.photoData = [AVCapturePhotoOutput JPEGPhotoDataRepresentationForJPEGSampleBuffer:photoSampleBuffer previewPhotoSampleBuffer:previewPhotoSampleBuffer];
+    
+    
+        self.photoData = [AVCapturePhotoOutput JPEGPhotoDataRepresentationForJPEGSampleBuffer:photoSampleBuffer previewPhotoSampleBuffer:previewPhotoSampleBuffer];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.controllerToShare updatePreviewImage:[UIImage imageWithData:self.photoData]];
+    });
+
+    
+    // self.previewImage = ;
 }
 
 - (void)captureOutput:(AVCapturePhotoOutput *)captureOutput didFinishRecordingLivePhotoMovieForEventualFileAtURL:(NSURL *)outputFileURL resolvedSettings:(AVCaptureResolvedPhotoSettings *)resolvedSettings
@@ -143,6 +152,7 @@
                 [[PHPhotoLibrary sharedPhotoLibrary] performChanges:^{
                     // In iOS 9 and later, it's possible to move the file into the photo library without duplicating the file data.
                     // This avoids using double the disk space during save, which can make a difference on devices with limited free disk space.
+                    
                     PHAssetResourceCreationOptions *options = [[PHAssetResourceCreationOptions alloc] init];
                     options.shouldMoveFile = YES;
                     [[PHAssetCreationRequest creationRequestForAsset] addResourceWithType:PHAssetResourceTypePhoto fileURL:temporaryDNGFileURL options:options]; // Add move (not copy) option
